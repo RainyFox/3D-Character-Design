@@ -16,6 +16,7 @@ public class TPCharacter : MonoBehaviour
     private void Start() {
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
+        rigidbody.useGravity = false;
     }
 
     bool onGround = false;
@@ -41,5 +42,10 @@ public class TPCharacter : MonoBehaviour
         }        
 
         animator.SetBool("OnGround", onGround);        
-    }    
+    }
+
+    private void FixedUpdate()
+    {
+        rigidbody.AddForce(Physics.gravity * gravityScale);
+    }
 }
