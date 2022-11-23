@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(TPCharacter))]
 public class TPController : MonoBehaviour
 {
+    [SerializeField] Transform weaponSlotOnBack, weaponSlotOnHand;
+    [SerializeField] Transform weapon;
     TPCharacter character;
     Transform camTrans;
     // Start is called before the first frame update
@@ -27,5 +29,17 @@ public class TPController : MonoBehaviour
         }
 
         character.Move(move, Input.GetButtonDown("Jump"));
+    }
+
+    void GetWeapon()
+    {
+        weapon.SetParent(weaponSlotOnHand);
+        weapon.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+    }
+
+    void PutWeapon()
+    {
+        weapon.SetParent(weaponSlotOnBack);
+        weapon.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 }
