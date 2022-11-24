@@ -13,7 +13,8 @@ public class TPCharacter : MonoBehaviour
 
     Animator animator;
     Rigidbody rigidbody;
-    private void Start() {
+    private void Start()
+    {
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.useGravity = false;
@@ -21,27 +22,31 @@ public class TPCharacter : MonoBehaviour
 
     bool onGround = false;
     float checkDelayTime = 0;
-    public void Move(Vector3 moveDir, bool isJump) {
-        onGround = Physics.CheckSphere(transform.position, 0.3f, whatIsGround, QueryTriggerInteraction.Ignore);        
-        if (onGround && Time.time > checkDelayTime) {
-            Vector3 velocity = Vector3.zero;            
-            if (moveDir.magnitude > 0) {
+    public void Move(Vector3 moveDir, bool isJump)
+    {
+        onGround = Physics.CheckSphere(transform.position, 0.3f, whatIsGround, QueryTriggerInteraction.Ignore);
+        if (onGround && Time.time > checkDelayTime)
+        {
+            Vector3 velocity = Vector3.zero;
+            if (moveDir.magnitude > 0)
+            {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 0.1f);
 
-                velocity = moveDir * maxSpeed;
+                velocity = moveDir * maxSpeed * animator.GetFloat("MoveCurve");
                 velocity.y = rigidbody.velocity.y;
             }
-            
+
             animator.SetFloat("Speed", moveDir.magnitude, 0.25f, Time.deltaTime);
             rigidbody.velocity = velocity * Mathf.Clamp01(animator.GetFloat("Speed"));
 
-            if (isJump) {
-                checkDelayTime = Time.time + 0.5f;                    
+            if (isJump)
+            {
+                checkDelayTime = Time.time + 0.5f;
                 rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
-        }        
+        }
 
-        animator.SetBool("OnGround", onGround);        
+        animator.SetBool("OnGround", onGround);
     }
 
     private void FixedUpdate()
