@@ -897,8 +897,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499847823}
-  m_LocalRotation: {x: 0.17351612, y: 0.00055313593, z: -0.00009745632, w: 0.9848309}
-  m_LocalPosition: {x: -0.0033699337, y: 2.5, z: -2.999998}
+  m_LocalRotation: {x: 0.17351612, y: 0.00055346097, z: -0.00009751359, w: 0.9848309}
+  m_LocalPosition: {x: -0.003371914, y: 2.5, z: -2.999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3813,7 +3813,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7541219697193251399}
-  m_LocalRotation: {x: 0.17351612, y: 0.00055313593, z: -0.00009745632, w: 0.9848309}
+  m_LocalRotation: {x: 0.17351612, y: 0.0005534609, z: -0.000097513584, w: 0.9848309}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3891,7 +3891,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7541219697385845486}
-  m_LocalRotation: {x: 0.17351612, y: 0.0005531357, z: -0.000097456286, w: 0.9848309}
+  m_LocalRotation: {x: 0.17351612, y: 0.00055346073, z: -0.00009751354, w: 0.9848309}
   m_LocalPosition: {x: 0.0000000013969839, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4000,7 +4000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7541219697550530389}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0033699337, y: 2.5, z: -2.999998}
+  m_LocalPosition: {x: -0.003371914, y: 2.5, z: -2.999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4441,7 +4441,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7541219698448976960}
-  m_LocalRotation: {x: 0.17351612, y: 0.00055313593, z: -0.00009745632, w: 0.9848309}
+  m_LocalRotation: {x: 0.17351612, y: 0.00055346097, z: -0.00009751359, w: 0.9848309}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

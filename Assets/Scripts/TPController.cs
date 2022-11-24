@@ -7,6 +7,7 @@ public class TPController : MonoBehaviour
 {
     [SerializeField] Transform weaponSlotOnBack, weaponSlotOnHand;
     [SerializeField] Transform weapon;
+    Animator animator;
     TPCharacter character;
     Transform camTrans;
     // Start is called before the first frame update
@@ -14,6 +15,8 @@ public class TPController : MonoBehaviour
     {
         character = GetComponent<TPCharacter>();
         camTrans = Camera.main.transform;
+        animator = GetComponent<Animator>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -24,8 +27,14 @@ public class TPController : MonoBehaviour
 
         Vector3 move = camForward * Input.GetAxis("Vertical") + camRight * Input.GetAxis("Horizontal");
         move.Normalize();
-        if (Input.GetKey(KeyCode.LeftShift)) {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
             move *= 0.5f;
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            animator.SetBool("IsFighting", !animator.GetBool("IsFighting"));
         }
 
         character.Move(move, Input.GetButtonDown("Jump"));
