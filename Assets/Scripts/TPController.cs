@@ -34,7 +34,9 @@ public class TPController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            animator.SetBool("IsFighting", !animator.GetBool("IsFighting"));
+            if (animator.GetBool("IsFighting")) animator.SetTrigger("PutWeapon");
+            else animator.SetTrigger("GetWeapon");
+
         }
 
         character.Move(move, Input.GetButtonDown("Jump"));
@@ -42,12 +44,14 @@ public class TPController : MonoBehaviour
 
     void GetWeapon()
     {
+        animator.SetBool("IsFighting", true);
         weapon.SetParent(weaponSlotOnHand);
         weapon.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
     void PutWeapon()
     {
+        animator.SetBool("IsFighting", false);
         weapon.SetParent(weaponSlotOnBack);
         weapon.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
