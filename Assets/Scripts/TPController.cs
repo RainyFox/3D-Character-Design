@@ -39,6 +39,11 @@ public class TPController : MonoBehaviour
 
         }
 
+        if (animator.GetBool("IsFighting"))
+        {
+            if (Input.GetMouseButtonDown(0)) animator.SetTrigger("Attack");
+        }
+
         character.Move(move, Input.GetButtonDown("Jump"));
     }
 
