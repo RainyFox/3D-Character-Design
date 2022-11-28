@@ -12,12 +12,12 @@ public class TPCharacter : MonoBehaviour
     [SerializeField] float gravityScale = 1;
 
     Animator animator;
-    Rigidbody rigidbody;
+    Rigidbody rb;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody>();
-        rigidbody.useGravity = false;
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
     }
 
     bool onGround = false;
@@ -33,16 +33,16 @@ public class TPCharacter : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 0.1f);
 
                 velocity = moveDir * maxSpeed * animator.GetFloat("MoveCurve");
-                velocity.y = rigidbody.velocity.y;
+                velocity.y = rb.velocity.y;
             }
 
             animator.SetFloat("Speed", moveDir.magnitude, 0.25f, Time.deltaTime);
-            rigidbody.velocity = velocity * Mathf.Clamp01(animator.GetFloat("Speed"));
+            rb.velocity = velocity * Mathf.Clamp01(animator.GetFloat("Speed"));
 
             if (isJump)
             {
                 checkDelayTime = Time.time + 0.5f;
-                rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
 
@@ -51,6 +51,6 @@ public class TPCharacter : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidbody.AddForce(Physics.gravity * gravityScale);
+        rb.AddForce(Physics.gravity * gravityScale);
     }
 }

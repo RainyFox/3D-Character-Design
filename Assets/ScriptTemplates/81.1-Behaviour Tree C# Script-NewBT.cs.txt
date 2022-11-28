@@ -1,0 +1,26 @@
+using System.Collections.Generic;
+using UnityEngine;
+using BehaviourTree;
+
+#ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    BTNode rootNode;
+    // Start is called before the first frame update
+    void Start() {
+        #NOTRIM#
+        rootNode = TreeSetup();
+    }
+
+    // Update is called once per frame
+    void Update() {
+        #NOTRIM#
+        if (rootNode != null) rootNode.Execute();     
+    }
+
+    BTNode TreeSetup() 
+    {
+        return null;
+    }
+}
+#ROOTNAMESPACEEND#
