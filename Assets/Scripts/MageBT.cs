@@ -42,9 +42,9 @@ public class MageBT : MonoBehaviour
         #endregion
 
         #region Children of noFight
-        BTAction idleAction = new BTAction(3);
+        BTAction idleAction = new BTAction(Random.Range(1, 3));
         idleAction.OnEnter += behaviour.IdleAction;
-        BTAction walkAction = new BTAction(3);
+        BTAction walkAction = new BTAction(Random.Range(3, 7));
         walkAction.OnEnter += behaviour.WalkAction;
         noFightSequence.AddChildNode(idleAction);
         noFightSequence.AddChildNode(walkAction);
@@ -52,13 +52,16 @@ public class MageBT : MonoBehaviour
 
         #region Children of fight
         BTAction closeToAction = new BTAction(-1, WaitType.NoWait);
+
         BTParallel attackParallel = new BTParallel();
         BTAction runBackAction = new BTAction(1.5f);
 
         attackParallel.priority = () => behaviour.canAttack ? 50 : 0;
         runBackAction.priority = () => behaviour.canRun ? 100 : 0;
         runBackAction.OnEnter += behaviour.RunbackAction;
-        closeToAction.OnUpdate += behaviour.CloseToAction;
+        closeToAction.OnEnter += behaviour.OnCloseToActionEnter;
+        closeToAction.OnUpdate += behaviour.OnCloseToActionUpdate;
+
 
         fightSelect.AddChildNode(closeToAction);
         fightSelect.AddChildNode(attackParallel);

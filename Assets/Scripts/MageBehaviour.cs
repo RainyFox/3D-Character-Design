@@ -5,16 +5,23 @@ using BehaviourTree;
 
 public class MageBehaviour : MonoBehaviour
 {
+    #region Variables
     [SerializeField] float maxHp = 1000, seeRadius = 20, attackRadius = 12.5f, safeRadius = 5f;
     [SerializeField] LayerMask whoIsEnemy;
+    TPCharacter character;
+    Animator animator;
     public bool isFighting { get; private set; }
     public bool canAttack { get; private set; }
     public bool canRun { get; private set; }
     public float CurrHp { get; private set; }
     Transform attackTarget;
+    Vector3 moveDir = Vector3.zero;
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
+        character = GetComponent<TPCharacter>();
+        animator = GetComponent<Animator>();
         CurrHp = maxHp;
     }
 
@@ -33,6 +40,8 @@ public class MageBehaviour : MonoBehaviour
             if (aiToEnemyDist < attackRadius) canAttack = true;
             if (aiToEnemyDist < safeRadius) canRun = true;
         }
+
+        character.Move(moveDir, false);
     }
 
     public int GetDeadPriority()
@@ -53,17 +62,22 @@ public class MageBehaviour : MonoBehaviour
 
     public void IdleAction()
     {
-
+        moveDir = Vector3.zero;
+        animator.SetBool("IsFighting", false);
     }
 
     public void WalkAction()
     {
-
+        moveDir = Quaternion.Euler(0, Random.Range(0, 360), 0) * transform.forward * 0.5f;
+        animator.SetBool("IsFighting", false);
     }
-
-    public void CloseToAction(BTAction bTAction)
+    public void OnCloseToActionEnter()
     {
-
+        animator.SetBool("IsFighting", true);
+    }
+    public void OnCloseToActionUpdate(BTAction bTAction)
+    {
+        moveDir = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up).normalized;
     }
 
     public void RunbackAction()
@@ -83,4 +97,6 @@ public class MageBehaviour : MonoBehaviour
     {
 
     }
+
+
 }
