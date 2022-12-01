@@ -69,10 +69,9 @@ public class MageBT : MonoBehaviour
         #endregion
 
         #region Children of attack
-        BTAction lookAtAction = new BTAction();
-        BTAction attackAction = new BTAction();
+        BTAction lookAtAction = new BTAction(-1);
+        BTAction attackAction = new BTAction(-1);
         lookAtAction.OnUpdate += behaviour.LookatAction;
-        attackAction.OnEnter += behaviour.OnAttackActionEnter;
         attackAction.OnUpdate += behaviour.OnAttackActionUpdate;
         attackParallel.AddChildNode(lookAtAction);
         attackParallel.AddChildNode(attackAction);

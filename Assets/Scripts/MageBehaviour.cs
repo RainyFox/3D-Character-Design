@@ -31,6 +31,7 @@ public class MageBehaviour : MonoBehaviour
         isFighting = false;
         canAttack = false;
         canRun = false;
+        attackTarget = null;
         Collider[] colliders = Physics.OverlapSphere(transform.position, seeRadius, whoIsEnemy, QueryTriggerInteraction.Ignore);
         if (colliders.Length > 0)
         {
@@ -69,7 +70,6 @@ public class MageBehaviour : MonoBehaviour
     public void WalkAction()
     {
         moveDir = Quaternion.Euler(0, Random.Range(0, 360), 0) * transform.forward * 0.5f;
-        animator.SetBool("IsFighting", false);
     }
     public void OnCloseToActionEnter()
     {
@@ -77,26 +77,37 @@ public class MageBehaviour : MonoBehaviour
     }
     public void OnCloseToActionUpdate(BTAction bTAction)
     {
-        moveDir = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up).normalized;
+        if (attackTarget != null)
+            moveDir = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up).normalized;
     }
 
     public void RunbackAction()
     {
-
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("FightMove"))
+            moveDir = Vector3.ProjectOnPlane(transform.position - attackTarget.position, Vector3.up).normalized;
     }
 
     public void LookatAction(BTAction bTAction)
     {
-
-    }
-    public void OnAttackActionEnter()
-    {
-
+        //rotate to target
+        if (attackTarget != null)
+        {
+            moveDir = Vector3.zero;
+            Vector3 faceEnd = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(faceEnd), 0.1f);
+        }
     }
     public void OnAttackActionUpdate(BTAction bTAction)
     {
-
+        Vector3 faceEnd = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up);
+        if (Vector3.Angle(transform.forward, faceEnd) < 1) // aim target first 
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("FightMove"))
+            {
+                if (Random.Range(1, 8) == 7) animator.SetInteger("MagicType", 2);  // 1/7 use ultmate
+                else animator.SetInteger("MagicType", 1);
+                animator.SetTrigger("Attack");
+            }
+        }
     }
-
-
 }
