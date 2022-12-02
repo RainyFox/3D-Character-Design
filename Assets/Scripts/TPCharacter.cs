@@ -30,7 +30,7 @@ public class TPCharacter : MonoBehaviour
             Vector3 velocity = Vector3.zero;
             if (moveDir.magnitude > 0)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 0.1f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 0.2f);
 
                 velocity = moveDir * maxSpeed * animator.GetFloat("MoveCurve");
                 velocity.y = rb.velocity.y;

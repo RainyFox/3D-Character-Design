@@ -83,7 +83,7 @@ public class MageBehaviour : MonoBehaviour
 
     public void RunbackAction()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("FightMove"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("FightMove") && !animator.IsInTransition(0))
             moveDir = Vector3.ProjectOnPlane(transform.position - attackTarget.position, Vector3.up).normalized;
     }
 
@@ -94,7 +94,7 @@ public class MageBehaviour : MonoBehaviour
         {
             moveDir = Vector3.zero;
             Vector3 faceEnd = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(faceEnd), 0.1f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(faceEnd), 0.2f);
         }
     }
     public void OnAttackActionUpdate(BTAction bTAction)
@@ -102,7 +102,7 @@ public class MageBehaviour : MonoBehaviour
         Vector3 faceEnd = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up);
         if (Vector3.Angle(transform.forward, faceEnd) < 1) // aim target first 
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("FightMove"))
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("FightMove") && !animator.IsInTransition(0))
             {
                 if (Random.Range(1, 8) == 7) animator.SetInteger("MagicType", 2);  // 1/7 use ultmate
                 else animator.SetInteger("MagicType", 1);
