@@ -8,6 +8,7 @@ public class MageBehaviour : MonoBehaviour
     #region Variables
     [SerializeField] float maxHp = 1000, seeRadius = 20, attackRadius = 12.5f, safeRadius = 5f;
     [SerializeField] LayerMask whoIsEnemy;
+    [SerializeField] GameObject fireballOnHand;
     TPCharacter character;
     Animator animator;
     public bool isFighting { get; private set; }
@@ -99,15 +100,31 @@ public class MageBehaviour : MonoBehaviour
     }
     public void OnAttackActionUpdate(BTAction bTAction)
     {
-        Vector3 faceEnd = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up);
-        if (Vector3.Angle(transform.forward, faceEnd) < 1) // aim target first 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("FightMove") && !animator.IsInTransition(0))
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("FightMove") && !animator.IsInTransition(0))
+            Vector3 faceEnd = Vector3.ProjectOnPlane(attackTarget.position - transform.position, Vector3.up);
+            if (Vector3.Angle(transform.forward, faceEnd) < 1) // aim target first 
             {
-                if (Random.Range(1, 8) == 7) animator.SetInteger("MagicType", 2);  // 1/7 use ultmate
+                if (Random.Range(1, 8) == 7) animator.SetInteger("MagicType", 2); // 1/7 use ultmate
                 else animator.SetInteger("MagicType", 1);
                 animator.SetTrigger("Attack");
             }
         }
+    }
+
+    void createFireball()
+    {
+        fireballOnHand.SetActive(true);
+    }
+
+    void shootFireball(GameObject fireballPrefab)
+    {
+        fireballOnHand.SetActive(false);
+        Instantiate(fireballPrefab, fireballOnHand.transform.position,
+            Quaternion.LookRotation(attackTarget.position + Vector3.up * 1.3f - fireballOnHand.transform.position));
+    }
+    void createFireMeteor(GameObject fireMeteorPrefab)
+    {
+        Instantiate(fireMeteorPrefab, attackTarget.position, Quaternion.identity);
     }
 }
