@@ -43,8 +43,8 @@ public class TPController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0)) animator.SetTrigger("Attack");
         }
-
-        character.Move(move, Input.GetButtonDown("Jump"));
+        if (!animator.GetBool("IsDead"))
+            character.Move(move, Input.GetButtonDown("Jump"));
     }
 
     void GetWeapon()

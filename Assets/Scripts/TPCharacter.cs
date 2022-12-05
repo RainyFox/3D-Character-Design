@@ -49,6 +49,13 @@ public class TPCharacter : MonoBehaviour
         animator.SetBool("OnGround", onGround);
     }
 
+    private void Update()
+    {
+        
+        if (animator.GetBool("IsDead"))
+            enabled = false;
+    }
+
     private void FixedUpdate()
     {
         rb.AddForce(Physics.gravity * gravityScale);

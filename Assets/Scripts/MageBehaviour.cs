@@ -42,8 +42,8 @@ public class MageBehaviour : MonoBehaviour
             if (aiToEnemyDist < attackRadius) canAttack = true;
             if (aiToEnemyDist < safeRadius) canRun = true;
         }
-
-        character.Move(moveDir, false);
+        if (!animator.GetBool("IsDead"))
+            character.Move(moveDir, false);
     }
 
     public int GetDeadPriority()
