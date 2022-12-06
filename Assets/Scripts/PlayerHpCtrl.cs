@@ -8,13 +8,14 @@ public class PlayerHpCtrl : MonoBehaviour
     [SerializeField] float maxHp = 1000;
     [SerializeField] Image hpImage;
     Animator animatior;
-
+    Rigidbody rb;
     float currHp;
 
     // Start is called before the first frame update
     void Start()
     {
         animatior = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
         currHp = maxHp;
     }
 
@@ -22,6 +23,10 @@ public class PlayerHpCtrl : MonoBehaviour
     void Update()
     {
         hpImage.fillAmount = Mathf.Lerp(hpImage.fillAmount, currHp / maxHp, 0.1f);
+        if (currHp <= 0)
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 
     void GetDamage(float damage)
@@ -30,6 +35,7 @@ public class PlayerHpCtrl : MonoBehaviour
         if (currHp < 0)
         {
             currHp = 0;
+            animatior.applyRootMotion = true;
             animatior.SetBool("IsDead", true);
         }
     }
