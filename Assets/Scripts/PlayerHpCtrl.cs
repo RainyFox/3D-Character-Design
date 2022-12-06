@@ -7,12 +7,14 @@ public class PlayerHpCtrl : MonoBehaviour
 {
     [SerializeField] float maxHp = 1000;
     [SerializeField] Image hpImage;
+    Animator animatior;
 
     float currHp;
 
     // Start is called before the first frame update
     void Start()
     {
+        animatior = GetComponent<Animator>();
         currHp = maxHp;
     }
 
@@ -26,7 +28,10 @@ public class PlayerHpCtrl : MonoBehaviour
     {
         currHp -= damage;
         if (currHp < 0)
+        {
             currHp = 0;
+            animatior.SetBool("IsDead", true);
+        }
     }
 
 }

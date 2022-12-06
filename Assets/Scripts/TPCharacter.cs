@@ -31,7 +31,6 @@ public class TPCharacter : MonoBehaviour
             if (moveDir.magnitude > 0)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 0.2f);
-
                 velocity = moveDir * maxSpeed * animator.GetFloat("MoveCurve");
                 velocity.y = rb.velocity.y;
             }
@@ -51,7 +50,6 @@ public class TPCharacter : MonoBehaviour
 
     private void Update()
     {
-        
         if (animator.GetBool("IsDead"))
             enabled = false;
     }
