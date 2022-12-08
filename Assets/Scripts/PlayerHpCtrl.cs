@@ -7,6 +7,10 @@ public class PlayerHpCtrl : MonoBehaviour
 {
     [SerializeField] float maxHp = 1000;
     [SerializeField] Image hpImage;
+    Rigidbody rb;
+    Collider rootCollider;
+    Rigidbody[] rigidbodies;
+    Collider[] colliders;
     Animator animatior;
 
     float currHp;
@@ -15,7 +19,13 @@ public class PlayerHpCtrl : MonoBehaviour
     void Start()
     {
         animatior = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        rootCollider = GetComponent<Collider>();
+        rigidbodies = GetComponentsInChildren<Rigidbody>();
+        colliders = GetComponentsInChildren<Collider>();
         currHp = maxHp;
+
+        SetRagdoll(false);
     }
 
     // Update is called once per frame
@@ -30,8 +40,18 @@ public class PlayerHpCtrl : MonoBehaviour
         if (currHp < 0)
         {
             currHp = 0;
+            animatior.applyRootMotion = true;
             animatior.SetBool("IsDead", true);
         }
     }
 
+    void SetRagdoll(bool active)
+    {
+
+    }
+
+    void Dead()
+    {
+        SetRagdoll(true);
+    }
 }
