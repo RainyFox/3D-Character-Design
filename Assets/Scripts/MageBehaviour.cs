@@ -125,6 +125,6 @@ public class MageBehaviour : MonoBehaviour
     }
     void createFireMeteor(GameObject fireMeteorPrefab)
     {
-        Instantiate(fireMeteorPrefab, attackTarget.position, Quaternion.identity);
+            Instantiate(fireMeteorPrefab, attackTarget.position, Quaternion.identity);
     }
 }
