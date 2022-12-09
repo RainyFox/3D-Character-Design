@@ -19,14 +19,11 @@ public class PlayerHpCtrl : MonoBehaviour
     void Start()
     {
         animatior = GetComponent<Animator>();
-<<<<<<< HEAD
         rb = GetComponent<Rigidbody>();
-=======
         rootRigidbody = GetComponent<Rigidbody>();
         rootCollider = GetComponent<Collider>();
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         colliders = GetComponentsInChildren<Collider>();
->>>>>>> temp
         currHp = maxHp;
 
         SetRagdoll(false);
