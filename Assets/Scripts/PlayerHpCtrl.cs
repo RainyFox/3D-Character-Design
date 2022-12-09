@@ -7,7 +7,7 @@ public class PlayerHpCtrl : MonoBehaviour
 {
     [SerializeField] float maxHp = 1000;
     [SerializeField] Image hpImage;
-    Rigidbody rb;
+    Rigidbody rootRigidbody;
     Collider rootCollider;
     Rigidbody[] rigidbodies;
     Collider[] colliders;
@@ -19,7 +19,7 @@ public class PlayerHpCtrl : MonoBehaviour
     void Start()
     {
         animatior = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
+        rootRigidbody = GetComponent<Rigidbody>();
         rootCollider = GetComponent<Collider>();
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         colliders = GetComponentsInChildren<Collider>();
@@ -47,11 +47,23 @@ public class PlayerHpCtrl : MonoBehaviour
 
     void SetRagdoll(bool active)
     {
-
+        rootRigidbody.isKinematic = active;
+        rootCollider.isTrigger = active;
+        foreach (var rigidbody in rigidbodies)
+        {
+            if (rigidbody != rootRigidbody)
+                rigidbody.isKinematic = !active;
+        }
+        foreach (var collider in colliders)
+        {
+            if (collider != rootCollider)
+                collider.isTrigger = !active;
+        }
     }
-
+    //Called by dead animation
     void Dead()
     {
+        animatior.enabled = false;
         SetRagdoll(true);
     }
 }
