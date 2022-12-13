@@ -5,6 +5,7 @@ using UnityEngine;
 public class MagicDamage : MonoBehaviour
 {
     [SerializeField] float damage = 150;
+    [SerializeField] LayerMask whoIsEnemy;
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))

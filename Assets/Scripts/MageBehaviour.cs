@@ -6,15 +6,15 @@ using BehaviourTree;
 public class MageBehaviour : MonoBehaviour
 {
     #region Variables
-    [SerializeField] float maxHp = 1000, seeRadius = 20, attackRadius = 12.5f, safeRadius = 5f;
+    [SerializeField] float seeRadius = 20, attackRadius = 12.5f, safeRadius = 5f;
     [SerializeField] LayerMask whoIsEnemy;
     [SerializeField] GameObject fireballOnHand;
     TPCharacter character;
     Animator animator;
+    HpCtrl hpCtrl;
     public bool isFighting { get; private set; }
     public bool canAttack { get; private set; }
     public bool canRun { get; private set; }
-    public float CurrHp { get; private set; }
     Transform attackTarget;
     Vector3 moveDir = Vector3.zero;
     #endregion
@@ -23,7 +23,7 @@ public class MageBehaviour : MonoBehaviour
     {
         character = GetComponent<TPCharacter>();
         animator = GetComponent<Animator>();
-        CurrHp = maxHp;
+        hpCtrl = GetComponent<HpCtrl>();
     }
 
     // Update is called once per frame
@@ -48,7 +48,7 @@ public class MageBehaviour : MonoBehaviour
 
     public int GetDeadPriority()
     {
-        return CurrHp <= 0 ? 100 : 0;
+        return hpCtrl.CurrHp <= 0 ? 100 : 0;
     }
 
     private void OnDrawGizmos()
@@ -125,6 +125,6 @@ public class MageBehaviour : MonoBehaviour
     }
     void createFireMeteor(GameObject fireMeteorPrefab)
     {
-            Instantiate(fireMeteorPrefab, attackTarget.position, Quaternion.identity);
+        Instantiate(fireMeteorPrefab, attackTarget.position, Quaternion.identity);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHpCtrl : MonoBehaviour
+public class HpCtrl : MonoBehaviour
 {
     [SerializeField] float maxHp = 1000;
     [SerializeField] Image hpImage;
@@ -13,7 +13,7 @@ public class PlayerHpCtrl : MonoBehaviour
     Collider[] colliders;
     Animator animatior;
     Rigidbody rb;
-    float currHp;
+    public float CurrHp { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class PlayerHpCtrl : MonoBehaviour
         rootCollider = GetComponent<Collider>();
         rigidbodies = GetComponentsInChildren<Rigidbody>();
         colliders = GetComponentsInChildren<Collider>();
-        currHp = maxHp;
+        CurrHp = maxHp;
 
         SetRagdoll(false);
     }
@@ -32,8 +32,8 @@ public class PlayerHpCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hpImage.fillAmount = Mathf.Lerp(hpImage.fillAmount, currHp / maxHp, 0.1f);
-        if (currHp <= 0)
+        hpImage.fillAmount = Mathf.Lerp(hpImage.fillAmount, CurrHp / maxHp, 0.1f);
+        if (CurrHp <= 0)
         {
             rb.velocity = Vector3.zero;
         }
@@ -41,10 +41,10 @@ public class PlayerHpCtrl : MonoBehaviour
 
     void GetDamage(float damage)
     {
-        currHp -= damage;
-        if (currHp < 0)
+        CurrHp -= damage;
+        if (CurrHp < 0)
         {
-            currHp = 0;
+            CurrHp = 0;
             animatior.applyRootMotion = true;
             animatior.SetBool("IsDead", true);
         }
