@@ -51,7 +51,10 @@ public class TPCharacter : MonoBehaviour
     private void Update()
     {
         if (animator.GetBool("IsDead"))
+        {
             enabled = false;
+            //rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
     }
 
     private void FixedUpdate()
